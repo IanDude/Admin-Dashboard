@@ -1,14 +1,17 @@
-import { Link, Outlet } from "react-router";
+import { Outlet } from "react-router";
+import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 
 const Dashboard = () => {
   return (
     <>
-      <h1>Dashboard</h1>
-      <nav>
-        <Link to={"users"}> Users</Link>
-        <Link to={"files"}> Files</Link>
-      </nav>
-      <Outlet />
+      <section className="flex h-screen ">
+        <Sidebar />
+        <div className="size-full ">
+          <Header />
+          <Outlet />
+        </div>
+      </section>
     </>
   );
 };

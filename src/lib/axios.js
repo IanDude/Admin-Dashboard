@@ -16,7 +16,10 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (error) => {
-    console.error("Error from axios", error);
+    // console.error("Error from axios", error?.response);
+    if (error?.response?.status === 403) {
+      console.error(error?.response?.data?.message);
+    }
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
       window.location.href = "/login";

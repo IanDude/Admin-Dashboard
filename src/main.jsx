@@ -11,22 +11,24 @@ import Dashboard from "./pages/Dashboard.jsx";
 import Users from "./pages/Users.jsx";
 import Files from "./pages/Files.jsx";
 import Register from "./pages/Register.jsx";
+import Overview from "./pages/Overview.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <ProtectedRoute>
-        <App />
-      </ProtectedRoute>
-    ),
+    element: <App />,
     children: [
       { index: true, element: <Home /> },
       {
         path: "dashboard",
-        element: <Dashboard />,
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
         children: [
+          { index: true, element: <Overview /> },
           { path: "users", element: <Users /> },
           { path: "files", element: <Files /> },
         ],

@@ -1,14 +1,11 @@
-import { Link, Outlet } from "react-router";
+import { Outlet } from "react-router";
 
 function App() {
   return (
     <>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/dashboard">Dashboard</Link>
-      </nav>
-
-      <Outlet />
+      <main className="flex flex-col h-screen ">
+        <Outlet />
+      </main>
     </>
   );
 }

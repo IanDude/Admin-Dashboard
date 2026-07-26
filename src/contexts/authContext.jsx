@@ -50,20 +50,20 @@ export const AuthProvider = ({ children }) => {
     checkAuth();
   }, []);
 
-  const login = async (email, password) => {
+  const login = async ({ email, password }) => {
     try {
       const { data } = await api.post("/auth/login", { email, password });
-
       if (data.success) {
-        const { user, token } = data;
-        localStorage.setItem("token", JSON.stringify(token));
+        const { user, token } = data.data;
+        localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
         setUser(user);
-        return { success: true };
+        return data;
       }
       return data;
     } catch (error) {
-      return { success: false, message: error?.response?.message || "Login Failed" };
+      console.error("Error response from context:", error?.response);
+      return error?.response;
     }
   };
 
@@ -87,7 +87,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
       localStorage.removeItem("user");
       localStorage.removeItem("token");
-      window.location.href = "/login";
+      window.location.href = "/";
     } catch (error) {
       console.error("Failed to remove data:", error);
     }
